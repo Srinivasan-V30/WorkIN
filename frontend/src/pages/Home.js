@@ -1,12 +1,13 @@
 import { useEffect , useState } from "react"
 
 import WorkoutDetails from "../components/workoutdetails"
+import WorkoutForm from "../components/workoutform"
 const Home=()=>
 {
     const [workouts,setWorkouts]=useState(null)
     useEffect(()=>{
         const fetchWorks = async()=>{
-            const response=await fetch('/workout')
+            const response=await fetch('http://localhost:4000/workout')
             const json=await response.json()
             if (response.ok)
             {
@@ -18,10 +19,10 @@ const Home=()=>
             //     .error(err=>console.log(err))
             // }
            
-            if (response.ok)
-            {
-                setWorkouts(json)
-            }
+            // if (response.ok)
+            // {
+            //     setWorkouts(json)
+            // }
         }
         fetchWorks()
     },[])
@@ -32,6 +33,7 @@ const Home=()=>
                     <WorkoutDetails key={workout._id} workout={workout} />
                 ))}     
             </div>
+            <WorkoutForm />
         </div>
     )
 }

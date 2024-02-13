@@ -23,6 +23,7 @@ const getWorkout=async(req,res)=>{
 //Post workout
 const postWorkout=async (req,res)=>{
     const {title,reps,weight}=req.body
+    console.log(req.body)
     //Exception prone
     try{
         const workout=await Workout.create({title,reps,weight})
