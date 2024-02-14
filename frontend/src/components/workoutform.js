@@ -1,5 +1,5 @@
 import { useState } from "react"
-import axios from 'axios'
+
 
 const WorkoutForm=()=>{
     const [title , setTitle]=useState('')
@@ -22,12 +22,10 @@ const WorkoutForm=()=>{
         })
         const json=await response.json()
 
-        // const data = await axios.post("http://localhost:4000/workout/add", workout)
-
 
         if (!response.ok)
         {
-            setError(json.error)
+            setError(json.Error)
         }
         if (response.ok)
         {
@@ -37,14 +35,7 @@ const WorkoutForm=()=>{
             setError(null)
             console.log("New workout added",json)
         }
-        // if (data){
-        //    setTitle('')
-        //     setLoad('')
-        //     setReps('')
-        //     setError(null)
-        //     console.log("New workout added",json)
-        // }
-
+        
     }
     return (
         <form className="create" onSubmit={handleSubmit}>
