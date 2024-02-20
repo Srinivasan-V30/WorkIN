@@ -4,8 +4,8 @@ const mongoose=require("mongoose")
 
 //Get all workout
 const getAllWorkout=async(req,res)=>{
-    const workouts=await Workout.find({}).sort({createdAt:-1})
-    res.status(200).json(workouts)
+    const workout=await Workout.find({}).sort({createdAt:-1})
+    res.status(200).json(workout)
 }
 //Get single workout
 const getWorkout=async(req,res)=>{
@@ -23,6 +23,23 @@ const getWorkout=async(req,res)=>{
 //Post workout
 const postWorkout=async (req,res)=>{
     const {title,reps,weight}=req.body
+    let emptyFields=[]
+    if(!title)
+    {
+        emptyFields.push('title')
+    }
+    if(!weight)
+    {
+        emptyFields.push('weight')
+    }
+    if(!reps)
+    {
+        emptyFields.push('reps')
+    }
+    if(emptyFields.length>0)
+    {
+       return res.status(400).json({Error:"Please fill in all the fields.",emptyFields})
+    }
     const workoutDet={
         title:title,
         reps:reps,
@@ -45,7 +62,7 @@ const postWorkout=async (req,res)=>{
 //Delete workout
 const deleteWorkout=async(req,res)=>{
     const { id }=req.params
-    if(mongoose.Types.ObjectId.isValid(id))
+    if(!mongoose.Types.ObjectId.isValid(id))
     {
         return res.status(404).json({Error:"Invalid Object Id"})
     }
